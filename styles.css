@@ -1,3 +1,8 @@
+@font-face {
+    font-family: alarmClock;
+    src: url("./fonts/alarm\ clock.ttf");
+}
+
 html {
     box-sizing: border-box;
   }
@@ -9,28 +14,58 @@ html {
 
 #title {
     margin: 20px;
+    font-size: 32px;
+    font-weight: lighter;
+}
+/* #jsLogo {
+    color: #323330;
+    background-color: #F0DB4F;
+    padding: 11px 2px 0 11px;
+    font-weight: 700;
+} */
+#serialNumber {
+    color: #22343f;
 }
 
 .casing {
+    margin: 20px auto;
     width: 500px;
     border: 5px solid black;
-    background-color: black;
-    color: white;
+    border-radius: 20px;
+    background-color: #1E2C35;
+    color: #F0FBFE;;
+    font-family: helvetica, arial;
+    font-weight: 100;
+    border-bottom: 10px solid #0f171b;
+    border-right: 10px solid #0f171b;
+    border-left: 10px solid #2f4655;
+    border-top: 10px solid #2f4655;
 }
 
 .display {
     border: 2px solid black;
-    padding: 50px 0px;
-    margin: 10px;
-    background-color: white;
+    padding: 0 10px;
+    margin: 20px;
+    background-color: #CCF2E5;
+    font-size: 80px;
+    border-top: 10px solid #172229;
+    border-left: 10px solid #172229;
+    border-right: 10px solid #2f4655;
+    border-bottom: 10px solid #2f4655;
+    border-radius: 9px;
 }
 
-.buttons {
+#displayText {
+    font-family: 'alarmClock', arial;
+    color: #010D09;
+}
+
+.buttonsContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    background-color:black;
+    background-color:#101D20;
     padding: 20px;
 
 }
@@ -43,14 +78,21 @@ html {
 .button {
     width: 100px;
     height: 100px;
-    font-size: 40px;
+    font-size: 50px;
     text-align: center;
+    background-color: #6C7878;
+    color: #F0FBFE;
+}
+
+#sqrt {
+    font-size: 40px;
 }
 
 #C {
-    background-color: orange;
+    color: #323330;
+    background-color: #F0DB4F;
 }
 
 #sqrt, #power, #multiply, #divide, #subtract, #add, #equals {
-    background-color: rgb(180, 180, 180);
+    background-color: #090F14;
 }
