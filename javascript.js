@@ -96,6 +96,18 @@ function calculate(){
             }
         } else {
             switch (operator){
+                case ("sqrt"):
+                    break;
+                case ("^"):
+                    result = +firstOperand;
+                    if (+secondOperand === 0){
+                        result = 1;
+                    } else {
+                        for (let i = 1; i < +secondOperand; i++){
+                            result = result * +firstOperand;
+                        }
+                    }
+                    break;
                 case ("*"):
                     result = +firstOperand * +secondOperand;
                     break;
@@ -105,10 +117,6 @@ function calculate(){
                     } else {
                         result = +firstOperand / +secondOperand;
                     }
-                    break;
-                case ("sqrt"):
-                    break;
-                case ("^"):
                     break;
                 case ("-"):
                     result = +firstOperand - +secondOperand;
