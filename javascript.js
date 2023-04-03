@@ -87,9 +87,9 @@ function calculate(){
         if (percentageOnOperand !== 0) {
             if (operator === "*"){
                 if (percentageOnOperand === 2){
-                    result = (100 / +firstOperand) * +secondOperand;
+                    result = (+firstOperand / 100) * +secondOperand;
                 } else {
-                    result = (100 / +secondOperand) * +firstOperand;
+                    result = (+secondOperand / 100) * +firstOperand;
                 }
             } else {
                 result = NaN;
