@@ -10,6 +10,10 @@ function showOnDisplay(){
 }
 
 function numberIsClicked(clickedSymbol){
+    // if operandNumber = 2
+    //    if isSqrt = false;
+
+    // Else
     if (operandNumber === 1 && symbolNumber === 0){
         firstOperand = clickedSymbol; // Replace current symbol with the number clicked (as a string)
         showOnDisplay();
@@ -24,32 +28,41 @@ function numberIsClicked(clickedSymbol){
 function operatorIsClicked(clickedSymbol){
     if (operandNumber === 2){
         // Does nothing
+        showOnDisplay();
+    } else if (clickedSymbol === "sqrt") {
+        calculate();
     } else {
-        switch (clickedSymbol){
-            case ("sqrt"):
-                break;
-            case ("^"):
-                break;
-            case ("x"):
-                break;
-            case ("/"):
-                break;
-            case ("-"):
-                break;
-            case ("+"):
-                break;
-            default:
-                break;
-        }
+        operandNumber++;
+        operator = clickedSymbol;
+        showOnDisplay();
     }
 
 }
 
-// operator clicked:
-// IF on second operand:
-//  -do nothing
+function calculate(){
+    console.log("siemaa");
+}
+// =
+        // switch (clickedSymbol){
+        //     case ("sqrt"):
+        //         break;
+        //     case ("^"):
+        //         break;
+        //     case ("x"):
+        //         break;
+        //     case ("/"):
+        //         break;
+        //     case ("-"):
+        //         break;
+        //     case ("+"):
+        //         break;
+        //     default:
+        //         break;
+        // }
+
+
 // ELSE:
-//  -convert first operator to a number and store it as an object property
+
 //  -store the function tied to the given operator as an object property
 //  -switch to second operator
 
@@ -76,6 +89,7 @@ function operatorIsClicked(clickedSymbol){
 //  -set second operand to an empty string
 
 // C clicked:
+/// maybe just refresh the page lol
 // -delete second operand
 // -return to first operand
 // -set first operand to 0
@@ -151,6 +165,36 @@ percentageButton.addEventListener('click', function() {
 //     clickedSymbol = "%";
 //     percentageIsClicked(clickedSymbol);
 // })
+
+let sqrtButton = document.querySelector("#sqrt");
+sqrtButton.addEventListener('click', function() {
+    clickedSymbol = "sqrt";
+    operatorIsClicked(clickedSymbol);
+})
+
+let expButton = document.querySelector("#exp");
+expButton.addEventListener('click', function() {
+    clickedSymbol = "^";
+    operatorIsClicked(clickedSymbol);
+})
+
+let multiplyButton = document.querySelector("#multiply");
+multiplyButton.addEventListener('click', function() {
+    clickedSymbol = "*";
+    operatorIsClicked(clickedSymbol);
+})
+
+let divideButton = document.querySelector("#divide");
+divideButton.addEventListener('click', function() {
+    clickedSymbol = "/";
+    operatorIsClicked(clickedSymbol);
+})
+
+let subtractButton = document.querySelector("#subtract");
+subtractButton.addEventListener('click', function() {
+    clickedSymbol = "-";
+    operatorIsClicked(clickedSymbol);
+})
 
  let addButton = document.querySelector("#add");
  addButton.addEventListener('click', function() {
