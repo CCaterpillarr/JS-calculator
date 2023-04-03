@@ -1,30 +1,33 @@
 let operandNumber = 1;
-let symbolNumber = 0;
+let displayedSymbols = 0;
+let onFirstSymbol = true;
 let firstOperand = "0";
 let operator = "";
 let secondOperand = "";
 let clickedSymbol = "";
+let percentageUsed = false;
 
 function showOnDisplay(){
-    if (symbolNumber <= 8){ // All following presses still count for the final calculation, just doesn't display them past 8 to not go out of bounds
+    if (displayedSymbols <= 8){ // All following presses still count for the final calculation, just doesn't display them past 8 to not go out of bounds
         displayText.textContent= firstOperand + operator + secondOperand;
     }
 }
 
 function numberIsClicked(clickedSymbol){
     if (operandNumber === 1){
-        if (symbolNumber === 0){
+        if (onFirstSymbol === true){
             firstOperand = clickedSymbol; // Replace current symbol with the number clicked (as a string)
-            symbolNumber++;
+            displayedSymbols++;
+            onFirstSymbol = false;
             showOnDisplay();
         } else {  
             firstOperand = firstOperand + clickedSymbol; // Add the number as a string to the current operator
-            symbolNumber++;
+            displayedSymbols++;
             showOnDisplay();
         }
     } else {
         secondOperand = secondOperand + clickedSymbol;
-        symbolNumber++;
+        displayedSymbols++;
         showOnDisplay();
     }
 } 
@@ -39,13 +42,28 @@ function operatorIsClicked(clickedSymbol){
     } else {
         operandNumber++;
         operator = clickedSymbol;
-        symbolNumber++;
+        displayedSymbols++;
         showOnDisplay();
     }
 
 }
 
-// % clicked:
+function percentageIsClicked(){
+    if (percentageUsed === true){
+        // Does nothing
+        showOnDisplay();
+    } else {
+        console.log("kcilck");
+        if (operandNumber === 1){
+            firstOperand = firstOperand + "%";
+        } else {
+            secondOperand = secondOperand + "%";
+        }
+        displayedSymbols++;
+        percentageUsed = true;
+        showOnDisplay();
+    }
+}
 // add "%" to the string
 // -block adding .0123456789 to the current operand
 // [block incompatible things like + 20%]
@@ -59,19 +77,19 @@ function operatorIsClicked(clickedSymbol){
 
 function calculate(){
     if (secondOperand !== "" || operator === "sqrt"){
-        let result = 0;
+        let result = "";
         switch (operator){
-            case ("sqrt"):
-                break;
-            case ("^"):
-                console.log("pow");
-                break;
             case ("*"):
                 result = +firstOperand * +secondOperand;
                 console.log(2 * 2);
                 break;
             case ("/"):
                 result = +firstOperand / +secondOperand;
+                break;
+            case ("sqrt"):
+                break;
+            case ("^"):
+                console.log("pow");
                 break;
             case ("-"):
                 result = +firstOperand - +secondOperand;
@@ -87,11 +105,13 @@ function calculate(){
 }
 function reset(result){
     operandNumber = 1;
-    symbolNumber = result.toString().length;
+    displayedSymbols = result.toString().length;
+    onFirstSymbol = true;
     firstOperand = result.toString();
     operator = "";
     secondOperand = "";
     clickedSymbol = "";
+    percentageUsed = false;
     showOnDisplay();
 }
 
@@ -154,12 +174,11 @@ nine.addEventListener('click', function() {
   });
 
 
-// let percentageButton = document.querySelector("#percent");
-// percentageButton.addEventListener('click', function() {
-//     clickedSymbol = "%";
-//     percentageIsClicked(clickedSymbol);
-// })
-
+let percentageButton = document.querySelector("#percent");
+percentageButton.addEventListener('click', function() {
+    clickedSymbol = "%";
+    percentageIsClicked(clickedSymbol);
+})
 
 
 let sqrtButton = document.querySelector("#sqrt");
