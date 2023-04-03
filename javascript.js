@@ -29,7 +29,6 @@ function numberIsClicked(clickedSymbol){
     }
 } 
 
-
 function operatorIsClicked(clickedSymbol){
     if (operandNumber === 2){
         // Does nothing
@@ -46,40 +45,6 @@ function operatorIsClicked(clickedSymbol){
 
 }
 
-function calculate(){
-    if (secondOperand !== "" || operator === "sqrt"){
-        let result = 0;
-        switch (operator){
-            case ("sqrt"):
-                break;
-            case ("^"):
-                console.log("pow");
-                break;
-            case ("x"):
-                break;
-            case ("/"):
-                break;
-            case ("-"):
-                break;
-            case ("+"):
-                result = +firstOperand + +secondOperand;
-                break;
-            default:
-                break;
-        }
-        reset(result);
-    }
-}
-function reset(result){
-    operandNumber = 1;
-    symbolNumber = 0;
-    firstOperand = result.toString();
-    operator = "";
-    secondOperand = "";
-    clickedSymbol = "";
-    showOnDisplay();
-}
-
 // % clicked:
 // add "%" to the string
 // -block adding .0123456789 to the current operand
@@ -92,15 +57,44 @@ function reset(result){
 //  -add "." to the string
 //  -block adding . again to the current operand
 
-// = clicked:
-// IF second operand empty
-//  -do nothing
-// ELSE:
-//  -convert second operator to a number and store it as an object property
-//  -calculate the given operands and operator (stored as object properties)
-//  -return to first operand
-//  -set first operand to the result(converted to a string)
-//  -set second operand to an empty string
+function calculate(){
+    if (secondOperand !== "" || operator === "sqrt"){
+        let result = 0;
+        switch (operator){
+            case ("sqrt"):
+                break;
+            case ("^"):
+                console.log("pow");
+                break;
+            case ("*"):
+                result = +firstOperand * +secondOperand;
+                console.log(2 * 2);
+                break;
+            case ("/"):
+                result = +firstOperand / +secondOperand;
+                break;
+            case ("-"):
+                result = +firstOperand - +secondOperand;
+                break;
+            case ("+"):
+                result = +firstOperand + +secondOperand;
+                break;
+            default:
+                break;
+        }
+        reset(result);
+    }
+}
+function reset(result){
+    operandNumber = 1;
+    symbolNumber = result.toString().length;
+    firstOperand = result.toString();
+    operator = "";
+    secondOperand = "";
+    clickedSymbol = "";
+    showOnDisplay();
+}
+
 
 let display = document.querySelector(".display");
 let displayText = document.querySelector("#displayText");
