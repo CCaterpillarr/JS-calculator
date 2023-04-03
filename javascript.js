@@ -5,11 +5,17 @@ let firstOperand = "0";
 let operator = "";
 let secondOperand = "";
 let clickedSymbol = "";
-let percentageUsed = false;
+let percentageOnOperand = 0;
 
 function showOnDisplay(){
     if (displayedSymbols <= 8){ // All following presses still count for the final calculation, just doesn't display them past 8 to not go out of bounds
-        displayText.textContent= firstOperand + operator + secondOperand;
+        if (percentageOnOperand === 1){
+            displayText.textContent= firstOperand + "%" + operator + secondOperand;
+        } else if (percentageOnOperand === 2) {
+            displayText.textContent= firstOperand + operator + secondOperand + "%";
+        } else {
+            displayText.textContent= firstOperand + operator + secondOperand;
+        }
     }
 }
 
@@ -48,19 +54,10 @@ function operatorIsClicked(clickedSymbol){
 
 }
 
-function percentageIsClicked(){
-    if (percentageUsed === true){
-        // Does nothing
-        showOnDisplay();
-    } else {
-        console.log("kcilck");
-        if (operandNumber === 1){
-            firstOperand = firstOperand + "%";
-        } else {
-            secondOperand = secondOperand + "%";
-        }
+function percentageIsClicked(clickedSymbol){
+    if (percentageOnOperand === 0){
         displayedSymbols++;
-        percentageUsed = true;
+        percentageOnOperand = operandNumber;
         showOnDisplay();
     }
 }
@@ -78,32 +75,43 @@ function percentageIsClicked(){
 function calculate(){
     if (secondOperand !== "" || operator === "sqrt"){
         let result = "";
-        switch (operator){
-            case ("*"):
-                result = +firstOperand * +secondOperand;
-                console.log(2 * 2);
-                break;
-            case ("/"):
-                result = +firstOperand / +secondOperand;
-                break;
-            case ("sqrt"):
-                break;
-            case ("^"):
-                console.log("pow");
-                break;
-            case ("-"):
-                result = +firstOperand - +secondOperand;
-                break;
-            case ("+"):
-                result = +firstOperand + +secondOperand;
-                break;
-            default:
-                break;
+        if (percentageOnOperand !== 0) {
+            if (operator === "*"){
+                if (percentageOnOperand === 2){
+                    result = (100 / +firstOperand) * +secondOperand;
+                } else {
+                    result = (100 / +secondOperand) * +firstOperand;
+                }
+            } else {
+                result = "ERROR";
+            }
+        } else {
+            switch (operator){
+                case ("*"):
+                    result = +firstOperand * +secondOperand;
+                    break;
+                case ("/"):
+                    result = +firstOperand / +secondOperand;
+                    break;
+                case ("sqrt"):
+                    break;
+                case ("^"):
+                    break;
+                case ("-"):
+                    result = +firstOperand - +secondOperand;
+                    break;
+                case ("+"):
+                    result = +firstOperand + +secondOperand;
+                    break;
+                default:
+                    break;
+            }
         }
         reset(result);
     }
 }
 function reset(result){
+    console.log(result.toString());
     operandNumber = 1;
     displayedSymbols = result.toString().length;
     onFirstSymbol = true;
@@ -111,7 +119,7 @@ function reset(result){
     operator = "";
     secondOperand = "";
     clickedSymbol = "";
-    percentageUsed = false;
+    percentageOnOperand = 0;
     showOnDisplay();
 }
 
