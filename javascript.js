@@ -97,6 +97,7 @@ function calculate(){
         } else {
             switch (operator){
                 case ("sqrt"):
+                    result = Math.sqrt(+firstOperand);
                     break;
                 case ("^"):
                     result = +firstOperand;
