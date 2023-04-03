@@ -29,11 +29,13 @@ function numberIsClicked(clickedSymbol){
     }
 } 
 
+
 function operatorIsClicked(clickedSymbol){
     if (operandNumber === 2){
         // Does nothing
         showOnDisplay();
     } else if (clickedSymbol === "sqrt") {
+        operator = clickedSymbol;
         calculate();
     } else {
         operandNumber++;
@@ -45,31 +47,38 @@ function operatorIsClicked(clickedSymbol){
 }
 
 function calculate(){
-    console.log("siemaa");
+    if (secondOperand !== "" || operator === "sqrt"){
+        let result = 0;
+        switch (operator){
+            case ("sqrt"):
+                break;
+            case ("^"):
+                console.log("pow");
+                break;
+            case ("x"):
+                break;
+            case ("/"):
+                break;
+            case ("-"):
+                break;
+            case ("+"):
+                result = +firstOperand + +secondOperand;
+                break;
+            default:
+                break;
+        }
+        reset(result);
+    }
 }
-// =
-        // switch (clickedSymbol){
-        //     case ("sqrt"):
-        //         break;
-        //     case ("^"):
-        //         break;
-        //     case ("x"):
-        //         break;
-        //     case ("/"):
-        //         break;
-        //     case ("-"):
-        //         break;
-        //     case ("+"):
-        //         break;
-        //     default:
-        //         break;
-        // }
-
-
-// ELSE:
-
-//  -store the function tied to the given operator as an object property
-//  -switch to second operator
+function reset(result){
+    operandNumber = 1;
+    symbolNumber = 0;
+    firstOperand = result.toString();
+    operator = "";
+    secondOperand = "";
+    clickedSymbol = "";
+    showOnDisplay();
+}
 
 // % clicked:
 // add "%" to the string
@@ -92,14 +101,6 @@ function calculate(){
 //  -return to first operand
 //  -set first operand to the result(converted to a string)
 //  -set second operand to an empty string
-
-// C clicked:
-/// maybe just refresh the page lol
-// -delete second operand
-// -return to first operand
-// -set first operand to 0
-
-// length limit
 
 let display = document.querySelector(".display");
 let displayText = document.querySelector("#displayText");
@@ -209,3 +210,6 @@ subtractButton.addEventListener('click', function() {
  clearButton.addEventListener("click", function() {
         location.reload(true);
     });
+
+let resultButton = document.querySelector("#equals");
+resultButton.addEventListener("click", calculate);
