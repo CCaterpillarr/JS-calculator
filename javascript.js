@@ -6,22 +6,26 @@ let secondOperand = "";
 let clickedSymbol = "";
 
 function showOnDisplay(){
-    displayText.textContent= firstOperand + operator + secondOperand;
+    if (symbolNumber <= 8){ // All following presses still count for the final calculation, just doesn't display them past 8 to not go out of bounds
+        displayText.textContent= firstOperand + operator + secondOperand;
+    }
 }
 
 function numberIsClicked(clickedSymbol){
-    // if operandNumber = 2
-    //    if isSqrt = false;
-
-    // Else
-    if (operandNumber === 1 && symbolNumber === 0){
-        firstOperand = clickedSymbol; // Replace current symbol with the number clicked (as a string)
-        showOnDisplay();
+    if (operandNumber === 1){
+        if (symbolNumber === 0){
+            firstOperand = clickedSymbol; // Replace current symbol with the number clicked (as a string)
+            symbolNumber++;
+            showOnDisplay();
+        } else {  
+            firstOperand = firstOperand + clickedSymbol; // Add the number as a string to the current operator
+            symbolNumber++;
+            showOnDisplay();
+        }
+    } else {
+        secondOperand = secondOperand + clickedSymbol;
         symbolNumber++;
-    } else {  
-        firstOperand = firstOperand + clickedSymbol; // Add the number as a string to the current operator
         showOnDisplay();
-        symbolNumber++;
     }
 } 
 
@@ -34,6 +38,7 @@ function operatorIsClicked(clickedSymbol){
     } else {
         operandNumber++;
         operator = clickedSymbol;
+        symbolNumber++;
         showOnDisplay();
     }
 
@@ -154,17 +159,13 @@ nine.addEventListener('click', function() {
   });
 
 
-let percentageButton = document.querySelector("#percent");
-percentageButton.addEventListener('click', function() {
-    clickedSymbol = "%";
-    operatorIsClicked(clickedSymbol);
-})
-
 // let percentageButton = document.querySelector("#percent");
 // percentageButton.addEventListener('click', function() {
 //     clickedSymbol = "%";
 //     percentageIsClicked(clickedSymbol);
 // })
+
+
 
 let sqrtButton = document.querySelector("#sqrt");
 sqrtButton.addEventListener('click', function() {
@@ -201,3 +202,10 @@ subtractButton.addEventListener('click', function() {
      clickedSymbol = "+";
      operatorIsClicked(clickedSymbol);
  })
+
+
+ // Refreshes the page when clear button is clicked
+ let clearButton = document.querySelector("#c");
+ clearButton.addEventListener("click", function() {
+        location.reload(true);
+    });
