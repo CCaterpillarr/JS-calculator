@@ -9,7 +9,7 @@ let percentageOnOperand = 0;
 let dotOnOperand = 0;
 
 function showOnDisplay(){
-    if (displayedSymbols <= 8){ // All following presses still count for the final calculation, just doesn't display them past 8 to not go out of bounds
+    if (displayedSymbols <= 9){ // All following presses still count for the final calculation, just doesn't display them past 8 to not go out of bounds
         if (percentageOnOperand === 1){
             displayText.textContent= firstOperand + "%" + operator + secondOperand;
         } else if (percentageOnOperand === 2) {

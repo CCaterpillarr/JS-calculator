@@ -12,6 +12,10 @@ html {
     box-sizing: inherit;
   }
 
+  body {
+    background-color: rgb(226, 217, 199);
+  }
+
 #title {
     margin: 20px;
     font-size: 32px;
@@ -47,7 +51,7 @@ html {
     padding: 0 10px;
     margin: 20px;
     background-color: #CCF2E5;
-    font-size: 80px;
+    font-size: 75px;
     border-top: 10px solid #172229;
     border-left: 10px solid #172229;
     border-right: 10px solid #2f4655;
@@ -56,7 +60,6 @@ html {
     display: flex;
     justify-content: end;
 }
-
 #displayText {
     font-family: 'alarmClock', arial;
     color: #010D09;
@@ -79,11 +82,16 @@ html {
 
 .button {
     width: 100px;
-    height: 100px;
+    height: 60px;
     font-size: 50px;
     text-align: center;
     background-color: #6C7878;
     color: #F0FBFE;
+    font-family: 'Roboto', sans-serif;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 #sqrt {
@@ -93,8 +101,10 @@ html {
 #c {
     color: #323330;
     background-color: #F0DB4F;
+    border-radius: 5px;
 }
 
 #sqrt, #exp, #multiply, #divide, #subtract, #add, #equals {
     background-color: #090F14;
+    border-radius: 5px;
 }
