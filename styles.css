@@ -1,3 +1,5 @@
+/* global */
+
 @font-face {
     font-family: alarmClock;
     src: url("./fonts/alarm\ clock.ttf");
@@ -16,16 +18,9 @@ html {
     background-color: rgb(226, 217, 199);
   }
 
-#title {
-    margin: 20px;
-    font-size: 32px;
-    font-weight: lighter;
-}
-#serialNumber {
-    color: #19262e;
-}
+  /* casing */
 
-.casing {
+  .casing {
     margin: 20px auto;
     width: 500px;
     border: 5px solid black;
@@ -39,6 +34,17 @@ html {
     border-left: 10px solid #2f4655;
     border-top: 10px solid #2f4655;
 }
+
+#title {
+    margin: 20px;
+    font-size: 32px;
+    font-weight: lighter;
+}
+#serialNumber {
+    color: #19262e;
+}
+
+/* display */
 
 .display {
     border: 2px solid black;
@@ -54,10 +60,13 @@ html {
     display: flex;
     justify-content: end;
 }
+
 #displayText {
     font-family: 'alarmClock', arial;
     color: #010D09;
 }
+
+/* buttons */
 
 .buttonsContainer {
     display: flex;
@@ -82,10 +91,7 @@ html {
     background-color: #6C7878;
     color: #F0FBFE;
     font-family: 'Roboto', sans-serif;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 10px 10px 20px 0px;
 }
 
 #sqrt {
