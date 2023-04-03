@@ -21,7 +21,7 @@ function numberIsClicked(clickedSymbol){
             onFirstSymbol = false;
             showOnDisplay();
         } else {  
-            firstOperand = firstOperand + clickedSymbol; // Add the number as a string to the current operator
+            firstOperand = firstOperand + clickedSymbol; // Add the clicked number as a string to the current operator
             displayedSymbols++;
             showOnDisplay();
         }
@@ -217,11 +217,9 @@ subtractButton.addEventListener('click', function() {
      operatorIsClicked(clickedSymbol);
  })
 
-
- // Refreshes the page when clear button is clicked
  let clearButton = document.querySelector("#c");
  clearButton.addEventListener("click", function() {
-        location.reload(true);
+        location.reload(true);  // Refreshes the page when clear button is clicked
     });
 
 let resultButton = document.querySelector("#equals");
