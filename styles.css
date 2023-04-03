@@ -53,6 +53,8 @@ html {
     border-right: 10px solid #2f4655;
     border-bottom: 10px solid #2f4655;
     border-radius: 9px;
+    display: flex;
+    justify-content: end;
 }
 
 #displayText {
