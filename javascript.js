@@ -1,15 +1,16 @@
-let operandNumber = 1;
-let displayedSymbols = 0;
-let onFirstSymbol = true;
-let firstOperand = "0";
+let firstOperand = "0";  // Zero by default
 let operator = "";
 let secondOperand = "";
+
+let displayedSymbols = 0;
+let onFirstSymbol = true;  // First symbol of first or second operand
 let clickedSymbol = "";
-let percentageOnOperand = 0;
-let dotOnOperand = 0;
+let operandNumber = 1;
+let percentageOnOperand = 0;  // Which operand a percentage sign was used on
+let dotOnOperand = 0;  // // Which operand(s) a dot sign was used on
 
 function showOnDisplay(){
-    if (displayedSymbols <= 9){ // All following presses still count for the final calculation, just doesn't display them past 8 to not go out of bounds
+    if (displayedSymbols <= 9){ // All following presses still count for the final calculation, just doesn't display them past 9 to not go out of display bounds
         if (percentageOnOperand === 1){
             displayText.textContent= firstOperand + "%" + operator + secondOperand;
         } else if (percentageOnOperand === 2) {
@@ -21,13 +22,13 @@ function showOnDisplay(){
 }
 
 function numberIsClicked(clickedSymbol){
-    if (operandNumber === 1){
+    if (operandNumber === 1){  // Works on first operand
         if (onFirstSymbol === true){
             firstOperand = clickedSymbol; // Replace current symbol with the number clicked (as a string)
             displayedSymbols++;
             onFirstSymbol = false;
             showOnDisplay();
-        } else {  
+        } else {  // Works on second operand
             firstOperand = firstOperand + clickedSymbol; // Add the clicked number as a string to the current operator
             displayedSymbols++;
             showOnDisplay();
@@ -51,14 +52,14 @@ function operatorIsClicked(clickedSymbol){
         operandNumber++;
         operator = clickedSymbol;
         displayedSymbols++;
-        onFirstSymbol = true;
+        onFirstSymbol = true;  // Now on first symbol of the second operand
         showOnDisplay();
     }
 
 }
 
 function percentageIsClicked(clickedSymbol){
-    if (percentageOnOperand === 0){
+    if (percentageOnOperand === 0){  // Allows to add percentage sign only once
         displayedSymbols++;
         percentageOnOperand = operandNumber;
         showOnDisplay();
@@ -66,7 +67,7 @@ function percentageIsClicked(clickedSymbol){
 }
 
 function dotIsClicked(clickedSymbol){
-    if (onFirstSymbol === false && dotOnOperand !== operandNumber){
+    if (onFirstSymbol === false && dotOnOperand !== operandNumber){  // Blocks adding a dot if on first symbol of either operand or if given operand already has a dot added
         if (operandNumber === 1){
             firstOperand = firstOperand + clickedSymbol;
             displayedSymbols++;
@@ -81,18 +82,19 @@ function dotIsClicked(clickedSymbol){
     }
 }
 
+
 function calculate(){
-    if (secondOperand !== "" || operator === "√"){
+    if (secondOperand !== "" || operator === "√"){  // Works only if 2 operands are entered or sqrt was clicked
         let result = 0;
-        if (percentageOnOperand !== 0) {
-            if (operator === "*"){
+        if (percentageOnOperand !== 0) {  // Does this if there was a percentage sign
+            if (operator === "*"){  // Works only on multiplication
                 if (percentageOnOperand === 2){
                     result = (+firstOperand / 100) * +secondOperand;
-                } else {
+                } else {  // percentageOnOperand === 1
                     result = (+secondOperand / 100) * +firstOperand;
                 }
             } else {
-                result = NaN;
+                result = NaN;  // Doesn't calculate things like 20 + 5%
             }
         } else {
             switch (operator){
@@ -114,7 +116,7 @@ function calculate(){
                     break;
                 case ("/"):
                     if (+secondOperand === 0){
-                        result = NaN;
+                        result = NaN;  // Can't divide by 0
                     } else {
                         result = +firstOperand / +secondOperand;
                     }
@@ -133,22 +135,22 @@ function calculate(){
     }
 }
 function reset(result){
-    console.log(result.toString());
     operandNumber = 1;
     displayedSymbols = result.toString().length;
     onFirstSymbol = true;
-    firstOperand = result.toString();
     operator = "";
     secondOperand = "";
     clickedSymbol = "";
     percentageOnOperand = 0;
+    firstOperand = result.toString();  // Shows result by displaying firstOperand in showOnDisplay
     showOnDisplay();
 }
 
 
 const displayText = document.querySelector("#displayText");
-displayText.textContent = "0";
+displayText.textContent = "0";  // Shows 0 by default
 
+// Gives EvenListeners for all number buttons and sets clickedSymbol to a given number when clicked  
 const numberButtons = document.querySelectorAll(".number");
 numberButtons.forEach((button) =>
   button.addEventListener('click', function() {
@@ -156,16 +158,14 @@ numberButtons.forEach((button) =>
     numberIsClicked(clickedSymbol);
   }));
 
+// Gives EvenListeners for all operator buttons and sets clickedSymbol to a given operator when clicked  
   const operatorButtons = document.querySelectorAll(".operator");
   operatorButtons.forEach((button) =>
   button.addEventListener('click', function() {
     clickedSymbol = button.textContent;
     operatorIsClicked(clickedSymbol);
   }));
-
-
-//-------------------
-
+ 
 const percentageButton = document.querySelector("#percent");
 percentageButton.addEventListener('click', function() {
     clickedSymbol = "%";
@@ -177,8 +177,6 @@ dotButton.addEventListener('click', function() {
     clickedSymbol = ".";
     dotIsClicked(clickedSymbol);
 })
-
- //-------------------------
 
  const clearButton = document.querySelector("#c");
  clearButton.addEventListener("click", function() {
