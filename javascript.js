@@ -6,6 +6,7 @@ let operator = "";
 let secondOperand = "";
 let clickedSymbol = "";
 let percentageOnOperand = 0;
+let dotOnOperand = 0;
 
 function showOnDisplay(){
     if (displayedSymbols <= 8){ // All following presses still count for the final calculation, just doesn't display them past 8 to not go out of bounds
@@ -35,6 +36,7 @@ function numberIsClicked(clickedSymbol){
         secondOperand = secondOperand + clickedSymbol;
         displayedSymbols++;
         showOnDisplay();
+        onFirstSymbol = false;
     }
 } 
 
@@ -49,6 +51,7 @@ function operatorIsClicked(clickedSymbol){
         operandNumber++;
         operator = clickedSymbol;
         displayedSymbols++;
+        onFirstSymbol = true;
         showOnDisplay();
     }
 
@@ -61,20 +64,26 @@ function percentageIsClicked(clickedSymbol){
         showOnDisplay();
     }
 }
-// add "%" to the string
-// -block adding .0123456789 to the current operand
-// [block incompatible things like + 20%]
 
-// . clicked:
-// IF on first operand AND on first symbol:
-//  -do nothing
-// ELSE:
-//  -add "." to the string
-//  -block adding . again to the current operand
+function dotIsClicked(clickedSymbol){
+    if (onFirstSymbol === false && dotOnOperand !== operandNumber){
+        if (operandNumber === 1){
+            firstOperand = firstOperand + clickedSymbol;
+            displayedSymbols++;
+            dotOnOperand = 1;
+            showOnDisplay();
+        } else if (operandNumber === 2) {
+            secondOperand = secondOperand + clickedSymbol;
+            displayedSymbols++;
+            showOnDisplay();
+            dotOnOperand = 2;
+        }
+    }
+}
 
 function calculate(){
     if (secondOperand !== "" || operator === "sqrt"){
-        let result = "";
+        let result = 0;
         if (percentageOnOperand !== 0) {
             if (operator === "*"){
                 if (percentageOnOperand === 2){
@@ -83,7 +92,7 @@ function calculate(){
                     result = (100 / +secondOperand) * +firstOperand;
                 }
             } else {
-                result = "ERROR";
+                result = NaN;
             }
         } else {
             switch (operator){
@@ -91,7 +100,11 @@ function calculate(){
                     result = +firstOperand * +secondOperand;
                     break;
                 case ("/"):
-                    result = +firstOperand / +secondOperand;
+                    if (+secondOperand === 0){
+                        result = NaN;
+                    } else {
+                        result = +firstOperand / +secondOperand;
+                    }
                     break;
                 case ("sqrt"):
                     break;
@@ -186,6 +199,12 @@ let percentageButton = document.querySelector("#percent");
 percentageButton.addEventListener('click', function() {
     clickedSymbol = "%";
     percentageIsClicked(clickedSymbol);
+})
+
+let dotButton = document.querySelector("#dot");
+dotButton.addEventListener('click', function() {
+    clickedSymbol = ".";
+    dotIsClicked(clickedSymbol);
 })
 
 
